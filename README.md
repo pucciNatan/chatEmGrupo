@@ -1,0 +1,2 @@
+# sistemaDeChatDjango
+Em desenvolvimento
