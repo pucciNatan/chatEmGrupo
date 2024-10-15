@@ -4,35 +4,43 @@
     <meta charset="UTF-8">
    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channels</title>
+    <title>Chats</title>
+
 </head>
 <body>
+    <textarea id="chat" readonly rows="10" cols="50"></textarea><br>
+    <input type="text" id="text">
     <button id="btn">
         Enviar
     </button>
 
-
-
     <script>
     
-        const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/app/")
+        const chatSocket = new WebSocket("ws://127.0.0.1:8000/ws/app/{{ nome }}/")
 
         chatSocket.onmessage = function(event){
-            const data = JSON.parse(event.data)
-            console.log(data.message)
-
+            const data = JSON.parse(event.data);
+            const chatArea = document.getElementById('chat');
+            chatArea.value += data.message + '\n';
+            chatArea.scrollTop = chatArea.scrollHeight;
         }
+
 
         var btn = document.getElementById('btn')
         btn.addEventListener("click", function(event){
-            chatSocket.send(JSON.stringify({
-                'message': 'oláaa'
-            }));
+            mensagem = document.getElementById('text').value
+            if(mensagem.length == 0){
+                
+            }else{
+                chatSocket.send(JSON.stringify({
+                    'message': mensagem
+                }));
+                document.getElementById('text').value = ''
+            }
 
-
+            
 
         }, true)
-
 
     </script>
 
