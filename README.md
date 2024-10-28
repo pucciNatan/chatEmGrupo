@@ -1,2 +1,2 @@
 # sistemaDeChatDjango
-Em desenvolvimento
+Chat em grupo básico em django
